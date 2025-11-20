@@ -1,49 +1,5 @@
 # Find the Bags
-
-A React-based website for AI-powered bag recognition.
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js (v16 or higher)
-- npm or yarn
-
-### Installation
-
-1. Install dependencies:
-
-```bash
-npm install
-```
-
-### Running the Development Server
-
-To start the development server:
-
-```bash
-npm run dev
-```
-
-The website will be available at `http://localhost:5173`
-
-### Building for Production
-
-To build the project for production:
-
-```bash
-npm run build
-```
-
-The optimized files will be in the `dist/` directory.
-
-### Previewing the Production Build
-
-To preview the production build locally:
-
-```bash
-npm run preview
-```
+Web app used to provide historical and cultural information on vintage handbags
 
 ## Features
 
