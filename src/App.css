@@ -113,6 +113,165 @@
   margin: 0.5rem 0 0 0;
 }
 
+.analyze-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  font-size: 0.95rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  margin-top: 1rem;
+  font-weight: 600;
+}
+
+.analyze-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.6);
+}
+
+.analyze-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.bag-info {
+  margin-top: 2rem;
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+}
+
+.bag-info h3 {
+  color: #667eea;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+}
+
+.analysis-section {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.analysis-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.analysis-section h4 {
+  color: #333;
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
+}
+
+.analysis-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.analysis-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  background: #f5f5f5;
+  border-radius: 4px;
+}
+
+.item-name {
+  color: #333;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.item-confidence {
+  background: #667eea;
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.detected-text {
+  background: #f5f5f5;
+  padding: 1rem;
+  border-radius: 4px;
+  color: #333;
+  line-height: 1.6;
+  margin: 0;
+  max-height: 200px;
+  overflow-y: auto;
+  font-style: italic;
+}
+
+.color-palette {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.color-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.color-box {
+  width: 60px;
+  height: 60px;
+  border-radius: 4px;
+  border: 2px solid #ddd;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.color-percentage {
+  font-size: 0.85rem;
+  color: #666;
+  font-weight: 600;
+}
+
+.safety-check {
+  background: #f5f5f5;
+  padding: 1rem;
+  border-radius: 4px;
+  border-left: 4px solid #667eea;
+}
+
+.safety-check p {
+  margin: 0.5rem 0;
+  color: #333;
+}
+
+.safety-check p:first-child {
+  margin-top: 0;
+}
+
+.safety-check strong {
+  color: #667eea;
+}
+
+@media (max-width: 768px) {
+  .bag-info {
+    padding: 1.5rem;
+  }
+
+  .color-box {
+    width: 50px;
+    height: 50px;
+  }
+}
+
 .features {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -168,4 +327,81 @@
   .features {
     grid-template-columns: 1fr;
   }
+}
+
+.brand-info {
+  background: linear-gradient(135deg, #f0f4ff 0%, #fff0f5 100%);
+  padding: 1.5rem;
+  border-radius: 8px;
+  border-left: 4px solid #667eea;
+}
+
+.handbag-status {
+  margin: 0 0 1rem 0;
+  color: #333;
+  font-size: 1rem;
+}
+
+.brands-list,
+.web-results {
+  margin-top: 1rem;
+}
+
+.brands-list h5,
+.web-results h5 {
+  margin: 0.75rem 0 0.5rem 0;
+  color: #667eea;
+  font-size: 0.95rem;
+}
+
+.brands-list ul,
+.web-results ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.brands-list li,
+.web-results li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brands-list li:last-child,
+.web-results li:last-child {
+  border-bottom: none;
+}
+
+.brand-name {
+  color: #333;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.brand-confidence {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 0.25rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.web-results a {
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.web-results a:hover {
+  color: #764ba2;
+  text-decoration: underline;
+}
+
+.web-results span {
+  color: #333;
 }
