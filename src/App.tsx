@@ -3,10 +3,23 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FiCamera } from 'react-icons/fi'
 import { analyzeImage } from './services/visionService'
+import { identifyBagWithGemini, getBagHistoricalContext } from './services/geminiService'
 import './App.css'
 
 // Global variable to store the uploaded image
 let uploadedImage: File | null = null
+
+interface GeminiIdentification {
+  bagName: string;
+  brand: string;
+  description: string;
+  confidence: string;
+  estimatedPrice?: string;
+}
+
+interface BagHistoricalContext {
+  historicalContext: string;
+}
 
 interface VisionAnalysis {
   labels: Array<{ description: string; confidence: string }>;
@@ -18,6 +31,14 @@ interface VisionAnalysis {
   };
   colors: Array<{ color: string; percentage: string }>;
   objects: Array<{ name: string; confidence: string }>;
+  bagBrandInfo?: {
+    isHandbag: boolean;
+    handbagConfidence: number;
+    brands: Array<{ description: string; confidence: string }>;
+    webResults: Array<{ title: string; url: string }>;
+  };
+  geminiIdentification?: GeminiIdentification;
+  historicalContext?: BagHistoricalContext;
 }
 
 const App: FC = () => {
@@ -39,8 +60,8 @@ const App: FC = () => {
       return;
     }
 
-    const apiKey = (import.meta as any).env.VITE_GOOGLE_VISION_API_KEY;
-    if (!apiKey) {
+    const visionApiKey = (import.meta as any).env.VITE_GOOGLE_VISION_API_KEY;
+    if (!visionApiKey) {
       toast("Google Vision API key not configured");
       return;
     }
@@ -49,7 +70,50 @@ const App: FC = () => {
     analysisLoadingToast();
 
     try {
-      const analysis = await analyzeImage(uploadedImage, apiKey);
+      const analysis = await analyzeImage(uploadedImage, visionApiKey) as any;
+      
+      // If handbag detected with >50% confidence, call Gemini
+      if (analysis.bagBrandInfo && analysis.bagBrandInfo.handbagConfidence > 50) {
+        const geminiApiKey = (import.meta as any).env.VITE_GEMINI_API_KEY;
+        
+        if (geminiApiKey) {
+          try {
+            // Convert image to base64 for Gemini
+            const base64String = await new Promise<string>((resolve, reject) => {
+              const reader = new FileReader();
+              reader.onload = () => {
+                const result = (reader.result as string).split(',')[1];
+                resolve(result);
+              };
+              reader.onerror = reject;
+              reader.readAsDataURL(uploadedImage!);
+            });
+            
+            try {
+              const geminiResult = await identifyBagWithGemini(base64String, geminiApiKey);
+              analysis.geminiIdentification = geminiResult;
+              console.log('Gemini identification successful:', geminiResult);
+            } catch (geminiError) {
+              console.error('Gemini analysis error:', geminiError);
+              // Don't fail - Gemini is optional, continue with Vision results
+            }
+
+            // Get historical context
+            try {
+              const historicalContextResult = await getBagHistoricalContext(base64String, geminiApiKey);
+              analysis.historicalContext = historicalContextResult;
+              console.log('Historical context retrieved successfully');
+            } catch (historyError) {
+              console.error('Historical context retrieval error:', historyError);
+              // Don't fail - historical context is optional
+            }
+          } catch (error) {
+            console.error('Error preparing Gemini call:', error);
+            // Fall through to Vision-only results
+          }
+        }
+      }
+      
       setVisionAnalysis(analysis);
       analysisSuccessToast();
     } catch (error) {
@@ -171,6 +235,37 @@ const App: FC = () => {
             <div className='bag-info'>
               <h3>AI Analysis Results</h3>
               
+              {/* Gemini Bag Identification */}
+              {visionAnalysis.geminiIdentification && (
+                <div className="analysis-section gemini-section">
+                  <h4>🎯 Gemini Bag Identification</h4>
+                  <div className="gemini-results">
+                    <div className="gemini-item">
+                      <label>Bag Name/Model:</label>
+                      <p>{visionAnalysis.geminiIdentification.bagName}</p>
+                    </div>
+                    <div className="gemini-item">
+                      <label>Brand:</label>
+                      <p>{visionAnalysis.geminiIdentification.brand}</p>
+                    </div>
+                    <div className="gemini-item">
+                      <label>Description:</label>
+                      <p>{visionAnalysis.geminiIdentification.description}</p>
+                    </div>
+                    <div className="gemini-item">
+                      <label>Confidence:</label>
+                      <p>{visionAnalysis.geminiIdentification.confidence}</p>
+                    </div>
+                    {visionAnalysis.geminiIdentification.estimatedPrice && (
+                      <div className="gemini-item">
+                        <label>Estimated Price:</label>
+                        <p>{visionAnalysis.geminiIdentification.estimatedPrice}</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+              
               {/* Objects Detection */}
               {visionAnalysis.objects.length > 0 && (
                 <div className="analysis-section">
@@ -209,24 +304,6 @@ const App: FC = () => {
                 </div>
               )}
 
-              {/* Colors */}
-              {visionAnalysis.colors.length > 0 && (
-                <div className="analysis-section">
-                  <h4>Dominant Colors</h4>
-                  <div className="color-palette">
-                    {visionAnalysis.colors.map((colorInfo, idx) => (
-                      <div key={idx} className="color-item">
-                        <div 
-                          className="color-box" 
-                          style={{ backgroundColor: colorInfo.color }}
-                          title={colorInfo.color}
-                        />
-                        <span className="color-percentage">{colorInfo.percentage}%</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
               {/* Brand & Bag Information */}
               {visionAnalysis.bagBrandInfo && (
                 <div className="analysis-section">
@@ -272,15 +349,16 @@ const App: FC = () => {
                 </div>
               )}
 
-              {/* Safety Check */}
-              <div className="analysis-section">
-                <h4>Content Analysis</h4>
-                <div className="safety-check">
-                  <p><strong>Adult Content:</strong> {visionAnalysis.safeSearch.adult}</p>
-                  <p><strong>Violence:</strong> {visionAnalysis.safeSearch.violence}</p>
-                  <p><strong>Racy Content:</strong> {visionAnalysis.safeSearch.racy}</p>
+              {/* Historical Context */}
+              {visionAnalysis.historicalContext && (
+                <div className="analysis-section historical-context-section">
+                  <h4>📚 Historical Context</h4>
+                  <div className="historical-content">
+                    <p>{visionAnalysis.historicalContext.historicalContext}</p>
+                  </div>
                 </div>
-              </div>
+              )}
+
             </div>
           )}
         </section>

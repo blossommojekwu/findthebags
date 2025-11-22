@@ -2,14 +2,15 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  background-color: #ebe4e3;
 }
 
 .header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: linear-gradient(135deg, #74746c 0%, #746c6c 100%);
+  color: #ebe4e3;
   padding: 2rem;
   text-align: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(15, 15, 15, 0.2);
 }
 
 .header h1 {
@@ -30,6 +31,7 @@
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
+  background-color: #ebe4e3;
 }
 
 .hero {
@@ -42,13 +44,13 @@
 
 .hero h2 {
   font-size: 2rem;
-  color: #333;
+  color: #0f0f0f;
   margin-bottom: 1rem;
 }
 
 .hero p {
   font-size: 1.1rem;
-  color: #666;
+  color: #74746c;
   margin-bottom: 2rem;
 }
 
@@ -61,15 +63,15 @@
 }
 
 .cta-button {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: linear-gradient(135deg, #74746c 0%, #746c6c 100%);
+  color: #ebe4e3;
   border: none;
   padding: 0.75rem 2rem;
   font-size: 1rem;
   border-radius: 5px;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 4px 12px rgba(15, 15, 15, 0.2);
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -84,14 +86,14 @@
 
 .cta-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.6);
+  box-shadow: 0 6px 16px rgba(15, 15, 15, 0.3);
 }
 
 .cta-button.dragging {
-  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  background: linear-gradient(135deg, #746c6c 0%, #74746c 100%);
   transform: scale(1.05);
-  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.8);
-  border: 2px dashed rgba(255, 255, 255, 0.5);
+  box-shadow: 0 8px 24px rgba(15, 15, 15, 0.4);
+  border: 2px dashed rgba(235, 228, 227, 0.5);
 }
 
 .image-preview {
@@ -103,33 +105,33 @@
   max-width: 400px;
   max-height: 400px;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px rgba(15, 15, 15, 0.2);
   margin-bottom: 0.5rem;
 }
 
 .image-preview p {
-  color: #666;
+  color: #74746c;
   font-size: 0.9rem;
   margin: 0.5rem 0 0 0;
 }
 
 .analyze-button {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: linear-gradient(135deg, #74746c 0%, #746c6c 100%);
+  color: #ebe4e3;
   border: none;
   padding: 0.75rem 2rem;
   font-size: 0.95rem;
   border-radius: 5px;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 4px 12px rgba(15, 15, 15, 0.2);
   margin-top: 1rem;
   font-weight: 600;
 }
 
 .analyze-button:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.6);
+  box-shadow: 0 6px 16px rgba(15, 15, 15, 0.3);
 }
 
 .analyze-button:disabled {
@@ -139,16 +141,17 @@
 
 .bag-info {
   margin-top: 2rem;
-  background: white;
+  background: #ebe4e3;
   padding: 2rem;
   border-radius: 8px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 12px rgba(15, 15, 15, 0.1);
   width: 100%;
   max-width: 600px;
+  border: 2px solid #8e8e8c;
 }
 
 .bag-info h3 {
-  color: #667eea;
+  color: #74746c;
   margin-top: 0;
   margin-bottom: 1.5rem;
   font-size: 1.5rem;
@@ -157,7 +160,7 @@
 .analysis-section {
   margin-bottom: 1.5rem;
   padding-bottom: 1.5rem;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid #8e8e8c;
 }
 
 .analysis-section:last-child {
@@ -167,7 +170,7 @@
 }
 
 .analysis-section h4 {
-  color: #333;
+  color: #0f0f0f;
   margin: 0 0 1rem 0;
   font-size: 1.1rem;
 }
@@ -185,17 +188,18 @@
   padding: 0.75rem;
   background: #f5f5f5;
   border-radius: 4px;
+  border-left: 3px solid #8e8e8c;
 }
 
 .item-name {
-  color: #333;
+  color: #0f0f0f;
   font-weight: 500;
   text-transform: capitalize;
 }
 
 .item-confidence {
-  background: #667eea;
-  color: white;
+  background: #8e8e8c;
+  color: #ebe4e3;
   padding: 0.25rem 0.75rem;
   border-radius: 20px;
   font-size: 0.85rem;
@@ -206,12 +210,13 @@
   background: #f5f5f5;
   padding: 1rem;
   border-radius: 4px;
-  color: #333;
+  color: #0f0f0f;
   line-height: 1.6;
   margin: 0;
   max-height: 200px;
   overflow-y: auto;
   font-style: italic;
+  border-left: 3px solid #8e8e8c;
 }
 
 .color-palette {
@@ -231,13 +236,13 @@
   width: 60px;
   height: 60px;
   border-radius: 4px;
-  border: 2px solid #ddd;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 2px solid #8e8e8c;
+  box-shadow: 0 2px 4px rgba(15, 15, 15, 0.1);
 }
 
 .color-percentage {
   font-size: 0.85rem;
-  color: #666;
+  color: #74746c;
   font-weight: 600;
 }
 
@@ -245,12 +250,12 @@
   background: #f5f5f5;
   padding: 1rem;
   border-radius: 4px;
-  border-left: 4px solid #667eea;
+  border-left: 4px solid #8e8e8c;
 }
 
 .safety-check p {
   margin: 0.5rem 0;
-  color: #333;
+  color: #0f0f0f;
 }
 
 .safety-check p:first-child {
@@ -258,7 +263,7 @@
 }
 
 .safety-check strong {
-  color: #667eea;
+  color: #74746c;
 }
 
 @media (max-width: 768px) {
@@ -280,32 +285,34 @@
 }
 
 .feature-card {
-  background: white;
+  background: #ebe4e3;
   padding: 2rem;
   border-radius: 8px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 12px rgba(15, 15, 15, 0.1);
   transition: transform 0.3s, box-shadow 0.3s;
+  border: 2px solid #8e8e8c;
 }
 
 .feature-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 20px rgba(15, 15, 15, 0.2);
+  border-color: #74746c;
 }
 
 .feature-card h3 {
-  color: #667eea;
+  color: #74746c;
   margin-top: 0;
   font-size: 1.3rem;
 }
 
 .feature-card p {
-  color: #666;
+  color: #0f0f0f;
   line-height: 1.6;
 }
 
 .footer {
-  background: #333;
-  color: white;
+  background: #0f0f0f;
+  color: #ebe4e3;
   text-align: center;
   padding: 2rem;
   margin-top: 3rem;
@@ -330,15 +337,15 @@
 }
 
 .brand-info {
-  background: linear-gradient(135deg, #f0f4ff 0%, #fff0f5 100%);
+  background: linear-gradient(135deg, #ebe4e3 0%, #f0f0f0 100%);
   padding: 1.5rem;
   border-radius: 8px;
-  border-left: 4px solid #667eea;
+  border-left: 4px solid #8e8e8c;
 }
 
 .handbag-status {
   margin: 0 0 1rem 0;
-  color: #333;
+  color: #0f0f0f;
   font-size: 1rem;
 }
 
@@ -350,7 +357,7 @@
 .brands-list h5,
 .web-results h5 {
   margin: 0.75rem 0 0.5rem 0;
-  color: #667eea;
+  color: #74746c;
   font-size: 0.95rem;
 }
 
@@ -364,7 +371,7 @@
 .brands-list li,
 .web-results li {
   padding: 0.5rem 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid rgba(15, 15, 15, 0.1);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -376,14 +383,14 @@
 }
 
 .brand-name {
-  color: #333;
+  color: #0f0f0f;
   font-weight: 500;
   text-transform: capitalize;
 }
 
 .brand-confidence {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: linear-gradient(135deg, #8e8e8c 0%, #74746c 100%);
+  color: #ebe4e3;
   padding: 0.25rem 0.6rem;
   border-radius: 12px;
   font-size: 0.8rem;
@@ -391,17 +398,77 @@
 }
 
 .web-results a {
-  color: #667eea;
+  color: #74746c;
   text-decoration: none;
   font-weight: 500;
   transition: color 0.2s;
 }
 
 .web-results a:hover {
-  color: #764ba2;
+  color: #8e8e8c;
   text-decoration: underline;
 }
 
 .web-results span {
-  color: #333;
+  color: #0f0f0f;
 }
+
+.gemini-section {
+  background: linear-gradient(135deg, #ebe4e3 0%, #f0f0f0 100%) !important;
+  border-left-color: #8e8e8c !important;
+}
+
+.gemini-results {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.gemini-item {
+  padding: 1rem;
+  background: #ebe4e3;
+  border-radius: 6px;
+  border-left: 3px solid #74746c;
+  box-shadow: 0 2px 8px rgba(15, 15, 15, 0.1);
+  border: 1px solid #8e8e8c;
+}
+
+.gemini-item label {
+  display: block;
+  color: #74746c;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.5rem;
+}
+
+.gemini-item p {
+  margin: 0;
+  color: #0f0f0f;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.historical-context-section {
+  background: linear-gradient(135deg, #ebe4e3 0%, #f5f5f5 100%) !important;
+  border-left-color: #74746c !important;
+}
+
+.historical-content {
+  padding: 1.5rem;
+  background: #ebe4e3;
+  border-radius: 6px;
+  border: 1px solid #8e8e8c;
+  box-shadow: 0 2px 8px rgba(15, 15, 15, 0.1);
+}
+
+.historical-content p {
+  margin: 0;
+  color: #0f0f0f;
+  font-size: 1rem;
+  line-height: 1.8;
+  font-style: italic;
+  letter-spacing: 0.3px;
+}
+

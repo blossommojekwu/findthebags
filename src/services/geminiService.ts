@@ -13,6 +13,10 @@ interface BagIdentification {
   estimatedPrice?: string;
 }
 
+interface BagHistoricalContext {
+  historicalContext: string;
+}
+
 /**
  * Identifies bag name and brand using Google Gemini
  * @param imageBase64 - Base64 encoded image data (without data URI prefix)
@@ -25,7 +29,7 @@ export const identifyBagWithGemini = async (
 ): Promise<BagIdentification> => {
   try {
     const client = new GoogleGenerativeAI(apiKey);
-    const model = client.getGenerativeModel({ model: 'gemini-1.5-flash' });
+    const model = client.getGenerativeModel({ model: 'gemini-3-pro-preview' });
 
     const prompt = `You are an expert fashion and luxury bag specialist. Analyze this image and provide:
 1. The specific name/model of the bag (e.g., "Louis Vuitton Speedy", "Hermes Birkin")
@@ -67,6 +71,50 @@ Only respond with valid JSON, no additional text.`;
     };
   } catch (error) {
     console.error('Error identifying bag with Gemini:', error);
+    throw error;
+  }
+};
+
+/**
+ * Gets historical context about a bag using Google Gemini
+ * @param imageBase64 - Base64 encoded image data (without data URI prefix)
+ * @param apiKey - Google Gemini API key
+ * @returns Historical context information
+ */
+export const getBagHistoricalContext = async (
+  imageBase64: string,
+  apiKey: string
+): Promise<BagHistoricalContext> => {
+  try {
+    const client = new GoogleGenerativeAI(apiKey);
+    const model = client.getGenerativeModel({ model: 'gemini-1.5-flash' });
+
+    const prompt = `You are an expert fashion historian and luxury bag specialist. Analyze this bag image and provide the historical context of this bag. Include:
+1. The era or time period when this style was first introduced
+2. The cultural significance or historical importance of this bag design
+3. How this bag has evolved over time
+4. Notable figures or events associated with this bag type
+5. Its impact on fashion and design history
+
+Provide a comprehensive, engaging narrative about the bag's history. Write in a flowing paragraph format, not as a list.`;
+
+    const response = await model.generateContent([
+      {
+        inlineData: {
+          mimeType: 'image/jpeg',
+          data: imageBase64,
+        },
+      },
+      prompt,
+    ]);
+
+    const historicalContext = response.response.text();
+    
+    return {
+      historicalContext,
+    };
+  } catch (error) {
+    console.error('Error getting historical context from Gemini:', error);
     throw error;
   }
 };
