@@ -99,6 +99,8 @@
 .image-preview {
   margin-top: 2rem;
   text-align: left;
+  position: relative;
+  display: inline-block;
 }
 
 .image-preview img {
@@ -107,12 +109,42 @@
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(15, 15, 15, 0.2);
   margin-bottom: 0.5rem;
+  display: block;
 }
 
 .image-preview p {
   color: #74746c;
   font-size: 0.9rem;
   margin: 0.5rem 0 0 0;
+}
+
+.clear-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #0f0f0f;
+  color: #ebe4e3;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(15, 15, 15, 0.3);
+}
+
+.clear-button:hover {
+  background: #74746c;
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(15, 15, 15, 0.4);
+}
+
+.clear-button:active {
+  transform: scale(0.95);
 }
 
 .analyze-button {

@@ -87,7 +87,7 @@ export const getBagHistoricalContext = async (
 ): Promise<BagHistoricalContext> => {
   try {
     const client = new GoogleGenerativeAI(apiKey);
-    const model = client.getGenerativeModel({ model: 'gemini-1.5-flash' });
+    const model = client.getGenerativeModel({ model: 'gemini-3-pro-preview' });
 
     const prompt = `You are an expert fashion historian and luxury bag specialist. Analyze this bag image and provide the historical context of this bag. Include:
 1. The era or time period when this style was first introduced

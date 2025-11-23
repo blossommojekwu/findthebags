@@ -153,7 +153,13 @@ const App: FC = () => {
 
   const handleGetStarted = () => {
     fileInputRef.current?.click()
+  }
 
+  const handleClearImage = () => {
+    uploadedImage = null;
+    setImagePreview(null);
+    setVisionAnalysis(null);
+    console.log('Image cleared');
   }
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -219,6 +225,13 @@ const App: FC = () => {
               <div className="image-preview">
                 <img src={imagePreview} alt="Uploaded bag" />
                 <p>{uploadedImage?.name}</p>
+                <button 
+                  className="clear-button" 
+                  onClick={handleClearImage}
+                  title="Remove image"
+                >
+                  ✕
+                </button>
               </div>
             )}
           </div>
