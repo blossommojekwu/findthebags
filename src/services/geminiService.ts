@@ -13,9 +13,39 @@ interface BagIdentification {
   estimatedPrice?: string;
 }
 
+interface DesignerBagInfo {
+  isDesignerBag: boolean;
+  timePeriod: string;
+  creativeDirector: string;
+}
+
 interface BagHistoricalContext {
   historicalContext: string;
 }
+
+const designerBrands = [
+    'Louis Vuitton',
+    'Chanel',
+    'Hermès',
+    'Gucci',
+    'Prada',
+    'Dior',
+    'Fendi',
+    'Balenciaga',
+    'Celine',
+    'Phoebe Philo',
+    'Miu Miu',
+    'Yves Saint Laurent',
+    'Saint Laurent',
+    'Givenchy',
+    'Bottega Veneta',
+    'Valentino',
+    'Alexander McQueen',
+    'Salvatore Ferragamo',
+    'Tom Ford',
+    'Burberry',
+    'Versace',
+];
 
 /**
  * Identifies bag name and brand using Google Gemini
@@ -76,6 +106,61 @@ Only respond with valid JSON, no additional text.`;
 };
 
 /**
+ * Identifies desif
+ * @param imageBase64 - Base64 encoded image data (without data URI prefix)
+ * @param apiKey - Google Gemini API key
+ * @returns Bag identification details
+ */
+export const getDesignerBagInfo = async (
+  imageBase64: string,
+  apiKey: string
+): Promise<DesignerBagInfo> => {
+  try {
+    const client = new GoogleGenerativeAI(apiKey);
+    const model = client.getGenerativeModel({ model: 'gemini-3-pro-preview' });
+
+    const prompt = `You are an expert fashion and luxury bag specialist. Analyze this image and provide:
+1. If the bag is a designer bag from the following brands: ${designerBrands.join(', ')}. If yes, provide:
+2. The time period this bag model was released
+3. The name of the Creative Director at the time of release
+
+Format your response as JSON with keys: isDesignerBag, timePeriod, creativeDirector
+
+Only respond with valid JSON, no additional text.`;
+
+    const response = await model.generateContent([
+      {
+        inlineData: {
+          mimeType: 'image/jpeg',
+          data: imageBase64,
+        },
+      },
+      prompt,
+    ]);
+
+    const text = response.response.text();
+    
+    // Parse the JSON response
+    const jsonMatch = text.match(/\{[\s\S]*\}/);
+    if (!jsonMatch) {
+      throw new Error('Failed to parse Gemini response');
+    }
+
+    const parsed = JSON.parse(jsonMatch[0]);
+    
+    return {
+        isDesignerBag: parsed.isDesignerBag || false,
+        timePeriod: parsed.timePeriod || 'Unknown',
+        creativeDirector: parsed.creativeDirector || 'Unknown',
+        };
+    };
+  } catch (error) {
+    console.error('Error identifying bag with Gemini:', error);
+    throw error;
+  }
+};
+
+/**
  * Gets historical context about a bag using Google Gemini
  * @param imageBase64 - Base64 encoded image data (without data URI prefix)
  * @param apiKey - Google Gemini API key
@@ -96,7 +181,7 @@ export const getBagHistoricalContext = async (
 4. Notable figures or events associated with this bag type
 5. Its impact on fashion and design history
 
-Provide a comprehensive, engaging narrative about the bag's history. Write in a flowing paragraph format, not as a list.`;
+Provide a comprehensive, engaging narrative about the bag's history within 1-2 paragraphs.`;
 
     const response = await model.generateContent([
       {

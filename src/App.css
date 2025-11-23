@@ -159,6 +159,10 @@
   box-shadow: 0 4px 12px rgba(15, 15, 15, 0.2);
   margin-top: 1rem;
   font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  justify-content: center;
 }
 
 .analyze-button:hover:not(:disabled) {
@@ -169,6 +173,22 @@
 .analyze-button:disabled {
   opacity: 0.7;
   cursor: not-allowed;
+}
+
+.spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(235, 228, 227, 0.3);
+  border-radius: 50%;
+  border-top-color: #ebe4e3;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .bag-info {
@@ -476,6 +496,43 @@
 }
 
 .gemini-item p {
+  margin: 0;
+  color: #0f0f0f;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.designer-section {
+  background: linear-gradient(135deg, #ebe4e3 0%, #f5f5f5 100%) !important;
+  border-left-color: #8e8e8c !important;
+}
+
+.designer-results {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.designer-item {
+  padding: 1rem;
+  background: #ebe4e3;
+  border-radius: 6px;
+  border-left: 3px solid #74746c;
+  box-shadow: 0 2px 8px rgba(15, 15, 15, 0.1);
+  border: 1px solid #8e8e8c;
+}
+
+.designer-item label {
+  display: block;
+  color: #74746c;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.5rem;
+}
+
+.designer-item p {
   margin: 0;
   color: #0f0f0f;
   font-size: 1rem;

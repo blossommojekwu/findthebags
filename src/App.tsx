@@ -3,11 +3,36 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FiCamera } from 'react-icons/fi'
 import { analyzeImage } from './services/visionService'
-import { identifyBagWithGemini, getBagHistoricalContext } from './services/geminiService'
+import { identifyBagWithGemini, getBagHistoricalContext, getDesignerBagInfo } from './services/geminiService'
 import './App.css'
 
 // Global variable to store the uploaded image
 let uploadedImage: File | null = null
+
+// Utility function to parse markdown bold (**text**) to React elements
+const parseMarkdownBold = (text: string): (string | JSX.Element)[] => {
+  const parts: (string | JSX.Element)[] = [];
+  const regex = /\*\*([^*]+)\*\*/g;
+  let lastIndex = 0;
+  let match;
+
+  while ((match = regex.exec(text)) !== null) {
+    // Add text before the match
+    if (match.index > lastIndex) {
+      parts.push(text.substring(lastIndex, match.index));
+    }
+    // Add bold text
+    parts.push(<strong key={match.index}>{match[1]}</strong>);
+    lastIndex = match.index + match[0].length;
+  }
+
+  // Add remaining text
+  if (lastIndex < text.length) {
+    parts.push(text.substring(lastIndex));
+  }
+
+  return parts.length > 0 ? parts : [text];
+};
 
 interface GeminiIdentification {
   bagName: string;
@@ -19,6 +44,12 @@ interface GeminiIdentification {
 
 interface BagHistoricalContext {
   historicalContext: string;
+}
+
+interface DesignerBagInfo {
+  isDesignerBag: boolean;
+  timePeriod: string;
+  creativeDirector: string;
 }
 
 interface VisionAnalysis {
@@ -39,6 +70,7 @@ interface VisionAnalysis {
   };
   geminiIdentification?: GeminiIdentification;
   historicalContext?: BagHistoricalContext;
+  designerBagInfo?: DesignerBagInfo;
 }
 
 const App: FC = () => {
@@ -50,7 +82,6 @@ const App: FC = () => {
 
   const imageErrorToast = () => toast("Please upload an image file");
   const uploadSuccessToast = () => toast("Image uploaded successfully!");
-  const analysisLoadingToast = () => toast("Analyzing image...");
   const analysisSuccessToast = () => toast("Analysis complete!");
   const analysisErrorToast = (error: string) => toast(`Analysis failed: ${error}`);
 
@@ -67,7 +98,6 @@ const App: FC = () => {
     }
 
     setIsAnalyzing(true);
-    analysisLoadingToast();
 
     try {
       const analysis = await analyzeImage(uploadedImage, visionApiKey) as any;
@@ -106,6 +136,18 @@ const App: FC = () => {
             } catch (historyError) {
               console.error('Historical context retrieval error:', historyError);
               // Don't fail - historical context is optional
+            }
+
+            // Get designer bag info
+            try {
+              const designerBagResult = await getDesignerBagInfo(base64String, geminiApiKey);
+              if (designerBagResult.isDesignerBag) {
+                analysis.designerBagInfo = designerBagResult;
+                console.log('Designer bag info retrieved successfully:', designerBagResult);
+              }
+            } catch (designerError) {
+              console.error('Designer bag info retrieval error:', designerError);
+              // Don't fail - designer info is optional
             }
           } catch (error) {
             console.error('Error preparing Gemini call:', error);
@@ -196,7 +238,7 @@ const App: FC = () => {
     <div className="app">
       <header className="header">
         <h1>Find the Bags</h1>
-        <p>AI-Powered Vintage Bag Recognition</p>
+        <p>AI-Powered Bag Recognition</p>
       </header>
       
       <main className="main-content">
@@ -241,6 +283,7 @@ const App: FC = () => {
               onClick={analyzeImageWithVision}
               disabled={isAnalyzing}
             >
+              {isAnalyzing && <span className="spinner"></span>}
               {isAnalyzing ? 'Analyzing...' : 'Analyze Bag'}
             </button>
           )}
@@ -278,6 +321,23 @@ const App: FC = () => {
                   </div>
                 </div>
               )}
+
+              {/* Designer Bag Info */}
+              {visionAnalysis.designerBagInfo && (
+                <div className="analysis-section designer-section">
+                  <h4>👜 Designer Bag Info</h4>
+                  <div className="designer-results">
+                    <div className="designer-item">
+                      <label>Time Period:</label>
+                      <p>{visionAnalysis.designerBagInfo.timePeriod}</p>
+                    </div>
+                    <div className="designer-item">
+                      <label>Creative Director:</label>
+                      <p>{visionAnalysis.designerBagInfo.creativeDirector}</p>
+                    </div>
+                  </div>
+                </div>
+              )}
               
               {/* Objects Detection */}
               {visionAnalysis.objects.length > 0 && (
@@ -306,14 +366,6 @@ const App: FC = () => {
                       </div>
                     ))}
                   </div>
-                </div>
-              )}
-
-              {/* Text Detection */}
-              {visionAnalysis.text && (
-                <div className="analysis-section">
-                  <h4>Text Detected</h4>
-                  <p className="detected-text">{visionAnalysis.text}</p>
                 </div>
               )}
 
@@ -367,7 +419,7 @@ const App: FC = () => {
                 <div className="analysis-section historical-context-section">
                   <h4>📚 Historical Context</h4>
                   <div className="historical-content">
-                    <p>{visionAnalysis.historicalContext.historicalContext}</p>
+                    <p>{parseMarkdownBold(visionAnalysis.historicalContext.historicalContext)}</p>
                   </div>
                 </div>
               )}
@@ -379,11 +431,11 @@ const App: FC = () => {
         <section className="features">
           <div className="feature-card">
             <h3>Fast Recognition</h3>
-            <p>Instantly identify bags with our advanced AI algorithm.</p>
+            <p>Quickly identify bags with our advanced AI algorithm.</p>
           </div>
           <div className="feature-card">
             <h3>Accurate Results</h3>
-            <p>High-precision detection for various bag types and styles.</p>
+            <p>High-precision detection for various bags by Google Cloud Vision + Gemini AI APIs.</p>
           </div>
           <div className="feature-card">
             <h3>Easy to Use</h3>
