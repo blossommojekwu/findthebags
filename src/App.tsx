@@ -290,6 +290,51 @@ const App: FC = () => {
           {visionAnalysis && (
             <div className='bag-info'>
               <h3>AI Analysis Results</h3>
+
+              {/* Brand & Bag Information */}
+              {visionAnalysis.bagBrandInfo && (
+                <div className="analysis-section">
+                  <h4>🎒 Handbag Identification</h4>
+                  <div className="brand-info">
+                    <p className="handbag-status">
+                      <strong>Handbag Detected:</strong> {visionAnalysis.bagBrandInfo.handbagConfidence}% confidence
+                    </p>
+                    
+                    {visionAnalysis.bagBrandInfo.brands.length > 0 && (
+                      <div className="brands-list">
+                        <h5>Detected Brands/Logos:</h5>
+                        <ul>
+                          {visionAnalysis.bagBrandInfo.brands.map((brand: any, idx: number) => (
+                            <li key={idx}>
+                              <span className="brand-name">{brand.description}</span>
+                              <span className="brand-confidence">{brand.confidence}%</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                    
+                    {visionAnalysis.bagBrandInfo.webResults.length > 0 && (
+                      <div className="web-results">
+                        <h5>Similar Bags & Brands Found:</h5>
+                        <ul>
+                          {visionAnalysis.bagBrandInfo.webResults.map((result: any, idx: number) => (
+                            <li key={idx}>
+                              {result.url ? (
+                                <a href={result.url} target="_blank" rel="noopener noreferrer">
+                                  {result.title}
+                                </a>
+                              ) : (
+                                <span>{result.title}</span>
+                              )}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}              
               
               {/* Gemini Bag Identification */}
               {visionAnalysis.geminiIdentification && (
@@ -339,7 +384,7 @@ const App: FC = () => {
                 </div>
               )}
               
-              {/* Objects Detection */}
+              {/* Objects Detection
               {visionAnalysis.objects.length > 0 && (
                 <div className="analysis-section">
                   <h4>Objects Detected</h4>
@@ -352,9 +397,9 @@ const App: FC = () => {
                     ))}
                   </div>
                 </div>
-              )}
+              )} */}
 
-              {/* Labels */}
+              {/* Labels
               {visionAnalysis.labels.length > 0 && (
                 <div className="analysis-section">
                   <h4>Identified Features</h4>
@@ -367,52 +412,7 @@ const App: FC = () => {
                     ))}
                   </div>
                 </div>
-              )}
-
-              {/* Brand & Bag Information */}
-              {visionAnalysis.bagBrandInfo && (
-                <div className="analysis-section">
-                  <h4>🎒 Handbag Identification</h4>
-                  <div className="brand-info">
-                    <p className="handbag-status">
-                      <strong>Handbag Detected:</strong> {visionAnalysis.bagBrandInfo.handbagConfidence}% confidence
-                    </p>
-                    
-                    {visionAnalysis.bagBrandInfo.brands.length > 0 && (
-                      <div className="brands-list">
-                        <h5>Detected Brands/Logos:</h5>
-                        <ul>
-                          {visionAnalysis.bagBrandInfo.brands.map((brand: any, idx: number) => (
-                            <li key={idx}>
-                              <span className="brand-name">{brand.description}</span>
-                              <span className="brand-confidence">{brand.confidence}%</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                    
-                    {visionAnalysis.bagBrandInfo.webResults.length > 0 && (
-                      <div className="web-results">
-                        <h5>Similar Bags & Brands Found:</h5>
-                        <ul>
-                          {visionAnalysis.bagBrandInfo.webResults.map((result: any, idx: number) => (
-                            <li key={idx}>
-                              {result.url ? (
-                                <a href={result.url} target="_blank" rel="noopener noreferrer">
-                                  {result.title}
-                                </a>
-                              ) : (
-                                <span>{result.title}</span>
-                              )}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              )}
+              )} */}
 
               {/* Historical Context */}
               {visionAnalysis.historicalContext && (

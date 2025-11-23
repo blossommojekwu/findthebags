@@ -153,7 +153,6 @@ Only respond with valid JSON, no additional text.`;
         timePeriod: parsed.timePeriod || 'Unknown',
         creativeDirector: parsed.creativeDirector || 'Unknown',
         };
-    };
   } catch (error) {
     console.error('Error identifying bag with Gemini:', error);
     throw error;
