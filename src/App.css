@@ -2,12 +2,12 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #ebe4e3;
+  background-color: #fcfbf7;
 }
 
 .header {
   background: linear-gradient(135deg, #74746c 0%, #746c6c 100%);
-  color: #ebe4e3;
+  color: #fcfbf7;
   padding: 2rem;
   text-align: center;
   box-shadow: 0 2px 8px rgba(15, 15, 15, 0.2);
@@ -31,7 +31,7 @@
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
-  background-color: #ebe4e3;
+  background-color: #fcfbf7;
 }
 
 .hero {
@@ -64,7 +64,7 @@
 
 .cta-button {
   background: linear-gradient(135deg, #74746c 0%, #746c6c 100%);
-  color: #ebe4e3;
+  color: #fcfbf7;
   border: none;
   padding: 0.75rem 2rem;
   font-size: 1rem;
@@ -123,7 +123,7 @@
   top: 8px;
   right: 8px;
   background: #0f0f0f;
-  color: #ebe4e3;
+  color: #fcfbf7;
   border: none;
   border-radius: 50%;
   width: 36px;
@@ -149,7 +149,7 @@
 
 .analyze-button {
   background: linear-gradient(135deg, #74746c 0%, #746c6c 100%);
-  color: #ebe4e3;
+  color: #fcfbf7;
   border: none;
   padding: 0.75rem 2rem;
   font-size: 0.95rem;
@@ -181,7 +181,7 @@
   height: 16px;
   border: 2px solid rgba(235, 228, 227, 0.3);
   border-radius: 50%;
-  border-top-color: #ebe4e3;
+  border-top-color: #fcfbf7;
   animation: spin 0.8s linear infinite;
 }
 
@@ -193,7 +193,7 @@
 
 .bag-info {
   margin-top: 2rem;
-  background: #ebe4e3;
+  background: #fcfbf7;
   padding: 2rem;
   border-radius: 8px;
   box-shadow: 0 2px 12px rgba(15, 15, 15, 0.1);
@@ -251,7 +251,7 @@
 
 .item-confidence {
   background: #8e8e8c;
-  color: #ebe4e3;
+  color: #fcfbf7;
   padding: 0.25rem 0.75rem;
   border-radius: 20px;
   font-size: 0.85rem;
@@ -337,7 +337,7 @@
 }
 
 .feature-card {
-  background: #ebe4e3;
+  background: #fcfbf7;
   padding: 2rem;
   border-radius: 8px;
   box-shadow: 0 2px 12px rgba(15, 15, 15, 0.1);
@@ -364,7 +364,7 @@
 
 .footer {
   background: #0f0f0f;
-  color: #ebe4e3;
+  color: #fcfbf7;
   text-align: center;
   padding: 2rem;
   margin-top: 3rem;
@@ -389,7 +389,7 @@
 }
 
 .brand-info {
-  background: linear-gradient(135deg, #ebe4e3 0%, #f0f0f0 100%);
+  background: linear-gradient(135deg, #fcfbf7 0%, #f0f0f0 100%);
   padding: 1.5rem;
   border-radius: 8px;
   border-left: 4px solid #8e8e8c;
@@ -442,7 +442,7 @@
 
 .brand-confidence {
   background: linear-gradient(135deg, #8e8e8c 0%, #74746c 100%);
-  color: #ebe4e3;
+  color: #fcfbf7;
   padding: 0.25rem 0.6rem;
   border-radius: 12px;
   font-size: 0.8rem;
@@ -466,7 +466,7 @@
 }
 
 .gemini-section {
-  background: linear-gradient(135deg, #ebe4e3 0%, #f0f0f0 100%) !important;
+  background: linear-gradient(135deg, #fcfbf7 0%, #f0f0f0 100%) !important;
   border-left-color: #8e8e8c !important;
 }
 
@@ -478,7 +478,7 @@
 
 .gemini-item {
   padding: 1rem;
-  background: #ebe4e3;
+  background: #fcfbf7;
   border-radius: 6px;
   border-left: 3px solid #74746c;
   box-shadow: 0 2px 8px rgba(15, 15, 15, 0.1);
@@ -503,7 +503,7 @@
 }
 
 .designer-section {
-  background: linear-gradient(135deg, #ebe4e3 0%, #f5f5f5 100%) !important;
+  background: linear-gradient(135deg, #fcfbf7 0%, #f5f5f5 100%) !important;
   border-left-color: #8e8e8c !important;
 }
 
@@ -515,7 +515,7 @@
 
 .designer-item {
   padding: 1rem;
-  background: #ebe4e3;
+  background: #fcfbf7;
   border-radius: 6px;
   border-left: 3px solid #74746c;
   box-shadow: 0 2px 8px rgba(15, 15, 15, 0.1);
@@ -540,13 +540,13 @@
 }
 
 .historical-context-section {
-  background: linear-gradient(135deg, #ebe4e3 0%, #f5f5f5 100%) !important;
+  background: linear-gradient(135deg, #fcfbf7 0%, #f5f5f5 100%) !important;
   border-left-color: #74746c !important;
 }
 
 .historical-content {
   padding: 1.5rem;
-  background: #ebe4e3;
+  background: #fcfbf7;
   border-radius: 6px;
   border: 1px solid #8e8e8c;
   box-shadow: 0 2px 8px rgba(15, 15, 15, 0.1);

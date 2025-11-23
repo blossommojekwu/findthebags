@@ -428,20 +428,22 @@ const App: FC = () => {
           )}
         </section>
         
-        <section className="features">
-          <div className="feature-card">
-            <h3>Fast Recognition</h3>
-            <p>Quickly identify bags with our advanced AI algorithm.</p>
-          </div>
-          <div className="feature-card">
-            <h3>Accurate Results</h3>
-            <p>High-precision detection for various bags by Google Cloud Vision + Gemini AI APIs.</p>
-          </div>
-          <div className="feature-card">
-            <h3>Easy to Use</h3>
-            <p>Simple and intuitive interface for quick bag identification.</p>
-          </div>
-        </section>
+        {!imagePreview && (
+          <section className="features">
+            <div className="feature-card">
+              <h3>Fast Recognition</h3>
+              <p>Quickly identify bags with our advanced AI algorithm.</p>
+            </div>
+            <div className="feature-card">
+              <h3>Accurate Results</h3>
+              <p>High-precision detection for various bags by Google Cloud Vision + Gemini AI APIs.</p>
+            </div>
+            <div className="feature-card">
+              <h3>Easy to Use</h3>
+              <p>Simple and intuitive interface for quick bag identification.</p>
+            </div>
+          </section>
+        )}
       </main>
       
       <footer className="footer">
